@@ -148,7 +148,7 @@
         box-shadow: 0 0 0 3px rgba(43,108,255,0.18);
       }
 
-      .row { display: flex; flex-wrap: wrap; gap: 10px; }
+     
       .pill {
         border: 1px solid rgba(255,255,255,0.14);
         background: rgba(255,255,255,0.06);

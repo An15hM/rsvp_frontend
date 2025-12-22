@@ -1053,9 +1053,7 @@ if( typeof jQuery !== 'undefined' ) {
 				return Core.initModule({ selector: element ? element : '.flickr-feed', plugin: 'Flickr', required: [ vars.required.jQuery ] });
 			},
 
-			instagram: function(element) {
-				return Core.initModule({ selector: element ? element : '.instagram-photos', plugin: 'Instagram' });
-			},
+			
 
 			// Dribbble Pending
 
