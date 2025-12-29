@@ -24445,7 +24445,7 @@ td.actions {
   .process-steps li::before, .process-steps li::after {
     content: "";
     position: absolute;
-    top: 30px;
+    top: 18px;
     left: 0;
     margin-left: calc(var(--cnvs-i-size) / -2);
     width: 50%;
@@ -24646,7 +24646,7 @@ td.actions {
 .i-style,
 .i-bordered,
 .i-plain {
-  --cnvs-i-size: 3.25rem;
+  --cnvs-i-size: 2.25rem;
   --cnvs-i-border: 1px;
   --cnvs-i-fontsize: calc( var(--cnvs-i-size) / 2.666666 );
   --cnvs-i-bg-color: var(--bs-gray-800);

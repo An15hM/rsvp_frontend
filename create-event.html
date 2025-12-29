@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css/font-icons.css">
 
     <!-- Plugins/Components CSS -->
-    <link rel="stylesheet" href="css/swiper.css">
+    <link rel="stylesheet" href="css/components/bs-select.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
@@ -31,7 +31,7 @@
 
     <!-- Document Title
 	============================================= -->
-    <title>Header - eCommerce Minimal | Canvas</title>
+    <title>Create Event</title>
 
     <style>
         @media (min-width: 992px) {
@@ -64,6 +64,30 @@
             opacity: .7;
         }
     </style>
+    <style>
+        .bootstrap-select>.dropdown-toggle {
+            border: 1px solid #eaeaea;
+        }
+
+        #event-url input {
+            padding-right: 50px;
+        }
+
+        #event-url .url-status {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .theme-chooser:hover button {
+            opacity: 1 !important;
+        }
+    </style>
 
 </head>
 
@@ -72,216 +96,361 @@
     <div id="wrapper">
 
 
+        <header id="header" class="bg-light header-size-md">
+            <div id="header-wrap" class="border-top border-f5">
+                <div class="container">
+                    <div class="header-row justify-content-between justify-content-lg-center py-2">
+
+                        <div id="logo" class="me-0">
+                            <a href="index.html">
+                                <img class="logo-default"
+                                    srcset="images/files/logo-color.png, images/files/logo-color.png 2x"
+                                    src="images/files/logo-color.png" alt="Canvas Logo">
+                                <img class="logo-dark"
+                                    srcset="images/files/logo-color.png, images/files/logo-color.png 2x"
+                                    src="images/files/logo-color.png" alt="Canvas Logo">
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
 
         <main id="content">
             <div class="content-wrap">
-                <div class="container">
-                    <div class="wrap">
-                        <div class="top">
-                            <div class="title">Create Event (Vanilla JS Wizard)</div>
-                            <div class="progress" id="progressDots" aria-label="Progress"></div>
+                <div id="processTabs">
+                    <div class="container">
+                        <ul class="nav canvas-tabs tabs nav-tabs mb-3 process-steps row col-mb-30" style="border: none;"
+                            id="canvas-tab" role="tablist">
+                            <li class="col-sm-6 col-lg-3">
+                                <a href="#"
+                                    class="i-style rounded-circle i-bordered i-alt mx-auto active container-modules-loaded"
+                                    id="canvas-tab-1" aria-selected="true">1</a>
+                                <h5>Event Name</h5>
+                            </li>
+                            <li class="col-sm-6 col-lg-3">
+                                <a href="#"
+                                    class="i-style rounded-circle i-bordered i-alt mx-auto container-modules-loaded"
+                                    id="canvas-tab-2" aria-selected="false" tabindex="-1">2</a>
+                                <h5>Event Details</h5>
+                            </li>
+                            <li class="col-sm-6 col-lg-3">
+                                <a href="#" class="i-style rounded-circle i-bordered i-alt mx-auto" id="canvas-tab-3"
+                                    aria-selected="false" tabindex="-1">3</a>
+                                <h5>Choose a theme</h5>
+                            </li>
+                            <li class="col-sm-6 col-lg-3">
+                                <a href="#" class="i-style rounded-circle i-bordered i-alt mx-auto" id="canvas-tab-4"
+                                    aria-selected="false" tabindex="-1">4</a>
+                                <h5>Account Information</h5>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="step-contents">
+                        <div id="event-name">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-6">
+                                        <h4 class="text-center">What is the name of your event?</h4>
+                                        <input type="text" class="form-control">
+                                        <button class="button button-small w-100 mt-3" id="go-to-details">Continue to
+                                            next step</button>
+                                        <hr>
+                                        <div class="text-center">
+                                            <a href="#">Skip creating an event and sign up.</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="card">
-                            <form id="eventForm" novalidate>
-                                <!-- STEP 1 -->
-                                <section class="step active" data-step="1">
-                                    <div class="sectionTitle">1) Event Name</div>
-                                    <div class="grid">
-                                        <div>
-                                            <label for="eventName">Event name</label>
-                                            <input id="eventName" name="eventName"
-                                                placeholder="e.g., Flutter Meetup Kathmandu" />
-                                            <div class="hint">This will be used as the main title of your event.</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="error" id="errorStep1"></div>
-
-                                    <div class="actions">
-                                        <button class="btn secondary" type="button" id="back1" disabled>Back</button>
-                                        <button class="btn" type="button" id="next1">Continue</button>
-                                    </div>
-                                </section>
-
-                                <!-- STEP 2 -->
-                                <section class="step" data-step="2">
-                                    <div class="sectionTitle">2) Event Details</div>
-
-                                    <!-- 2.1 -->
-                                    <div class="sectionTitle">2.1) Tickets</div>
-                                    <div class="row" role="radiogroup" aria-label="Ticketing">
-                                        <label class="pill">
-                                            <input type="radio" name="ticketing" value="free" checked />
-                                            No, my event is free to attend
-                                        </label>
-                                        <label class="pill">
-                                            <input type="radio" name="ticketing" value="paid" />
-                                            Yes, I am selling tickets
-                                        </label>
-                                    </div>
-                                    <div id="paidHint" class="hint" style="display:none;">
-                                        You selected paid tickets (you can add pricing later).
-                                    </div>
-
-                                    <!-- 2.2 -->
-                                    <div class="sectionTitle">2.2) Event type</div>
-                                    <div class="row" role="radiogroup" aria-label="Event type">
-                                        <label class="pill">
-                                            <input type="radio" name="eventType" value="single" checked />
-                                            Single date, time and location
-                                        </label>
-                                        <label class="pill">
-                                            <input type="radio" name="eventType" value="multiple" />
-                                            Multiple dates/time & sessions
-                                        </label>
-                                        <label class="pill">
-                                            <input type="radio" name="eventType" value="appointment" />
-                                            Appointment scheduling
-                                        </label>
-                                    </div>
-
-                                    <!-- 2.3 -->
-                                    <div class="sectionTitle">2.3) When is your event?</div>
-
-                                    <div id="singleBlock" class="miniCard">
-                                        <div class="grid">
-                                            <div>
-                                                <label for="startDate">Event start date</label>
-                                                <input id="startDate" type="date" />
+                        <div id="event-details" class="d-none">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-8">
+                                        <h4 class="text-center mb-0">When is your event?</h4>
+                                        <p class="text-center my-3">Not Sure yet? You can add timing later.</p>
+                                        <p class="text-center"><a href="#">Skip for now.</a></p>
+                                        <div class="form-wrap">
+                                            <p class="font-semibold mb-1">Event Start</p>
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <input type="date" placeholder="Date" class="form-control">
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input type="text" placeholder="Time" class="form-control">
+                                                </div>
                                             </div>
-                                            <div>
-                                                <label for="startTime">Event start time</label>
-                                                <input id="startTime" type="time" />
+                                            <p class="font-semibold mb-1 mt-3">Event End</p>
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <input type="date" placeholder="Date" class="form-control">
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input type="text" placeholder="Time" class="form-control">
+                                                </div>
                                             </div>
+                                            <p class="font-semibold mb-1 mt-3">Timezone</p>
+                                            <select class="selectpicker form-control" style="border:1px solid #eaeaea;"
+                                                data-live-search="true">
+                                                <option value="Pacific/Midway">(UTC-11:00) Midway Island, Samoa</option>
+                                                <option value="Pacific/Niue">(UTC-11:00) Niue</option>
+                                                <option value="Pacific/Honolulu">(UTC-10:00) Hawaii</option>
+                                                <option value="Pacific/Rarotonga">(UTC-10:00) Rarotonga</option>
+                                                <option value="Pacific/Tahiti">(UTC-10:00) Tahiti</option>
 
-                                            <div>
-                                                <label for="endDate">Event end date</label>
-                                                <input id="endDate" type="date" />
-                                            </div>
-                                            <div>
-                                                <label for="endTime">Event end time</label>
-                                                <input id="endTime" type="time" />
-                                            </div>
+                                                <option value="America/Anchorage">(UTC-09:00) Alaska</option>
+                                                <option value="Pacific/Gambier">(UTC-09:00) Gambier Islands</option>
 
-                                            <div>
-                                                <label for="timezone">Timezone</label>
-                                                <select id="timezone"></select>
-                                            </div>
+                                                <option value="America/Los_Angeles">(UTC-08:00) Pacific Time (US &amp;
+                                                    Canada)</option>
+                                                <option value="America/Tijuana">(UTC-08:00) Tijuana</option>
+                                                <option value="Pacific/Pitcairn">(UTC-08:00) Pitcairn</option>
 
-                                            <div>
-                                                <label for="location">Location</label>
-                                                <input id="location" placeholder="e.g., Thamel, Kathmandu / Online" />
-                                            </div>
-                                        </div>
-                                    </div>
+                                                <option value="America/Denver">(UTC-07:00) Mountain Time (US &amp;
+                                                    Canada)</option>
+                                                <option value="America/Phoenix">(UTC-07:00) Arizona</option>
+                                                <option value="America/Chihuahua">(UTC-07:00) Chihuahua, La Paz,
+                                                    Mazatlan</option>
 
-                                    <div id="multipleBlock" class="miniCard" style="display:none;">
-                                        <div class="sessionHeader">
-                                            <div>
-                                                <div style="font-weight:700;">Sessions</div>
-                                                <div class="hint">Add one or more sessions (each with
-                                                    date/time/location).</div>
-                                            </div>
-                                            <button class="xbtn" type="button" id="addSessionBtn">+ Add session</button>
-                                        </div>
+                                                <option value="America/Chicago">(UTC-06:00) Central Time (US &amp;
+                                                    Canada)</option>
+                                                <option value="America/Mexico_City">(UTC-06:00) Mexico City</option>
+                                                <option value="America/Guatemala">(UTC-06:00) Guatemala</option>
 
-                                        <div class="grid">
-                                            <div>
-                                                <label for="timezoneMultiple">Timezone</label>
-                                                <select id="timezoneMultiple"></select>
-                                            </div>
-                                        </div>
+                                                <option value="America/New_York">(UTC-05:00) Eastern Time (US &amp;
+                                                    Canada)</option>
+                                                <option value="America/Toronto">(UTC-05:00) Toronto</option>
+                                                <option value="America/Bogota">(UTC-05:00) Bogota, Lima, Quito</option>
+                                                <option value="America/Havana">(UTC-05:00) Havana</option>
 
-                                        <div id="sessionsWrap"
-                                            style="margin-top:12px; display:flex; flex-direction:column; gap:12px;">
-                                        </div>
-                                    </div>
+                                                <option value="America/Caracas">(UTC-04:00) Caracas</option>
+                                                <option value="America/La_Paz">(UTC-04:00) La Paz</option>
+                                                <option value="America/Santiago">(UTC-04:00) Santiago</option>
+                                                <option value="America/Halifax">(UTC-04:00) Atlantic Time (Canada)
+                                                </option>
 
-                                    <div id="appointmentBlock" class="miniCard" style="display:none;">
-                                        <div class="grid">
-                                            <div>
-                                                <label for="apptStartDate">Availability start date</label>
-                                                <input id="apptStartDate" type="date" />
-                                            </div>
-                                            <div>
-                                                <label for="apptEndDate">Availability end date</label>
-                                                <input id="apptEndDate" type="date" />
-                                            </div>
-                                            <div>
-                                                <label for="apptDuration">Appointment duration (minutes)</label>
-                                                <input id="apptDuration" type="number" min="5" step="5"
-                                                    placeholder="e.g., 30" />
-                                            </div>
-                                            <div>
-                                                <label for="timezoneAppointment">Timezone</label>
-                                                <select id="timezoneAppointment"></select>
-                                            </div>
-                                        </div>
-                                        <div class="hint">This is a simple placeholder setup. You can expand to time
-                                            slots later.</div>
-                                    </div>
+                                                <option value="America/St_Johns">(UTC-03:30) Newfoundland</option>
 
-                                    <!-- 2.4 -->
-                                    <div class="sectionTitle">2.4) Event URL</div>
-                                    <div class="grid">
-                                        <div>
-                                            <label for="eventUrl">Event URL</label>
-                                            <input id="eventUrl" type="url"
-                                                placeholder="https://example.com/my-event" />
-                                        </div>
-                                    </div>
+                                                <option value="America/Sao_Paulo">(UTC-03:00) Brasilia (São Paulo)
+                                                </option>
+                                                <option value="America/Argentina/Buenos_Aires">(UTC-03:00) Buenos Aires
+                                                </option>
+                                                <option value="America/Godthab">(UTC-03:00) Greenland</option>
+                                                <option value="America/Montevideo">(UTC-03:00) Montevideo</option>
 
-                                    <div class="error" id="errorStep2"></div>
+                                                <option value="Atlantic/South_Georgia">(UTC-02:00) South Georgia
+                                                </option>
 
-                                    <div class="actions">
-                                        <button class="btn secondary" type="button" id="back2">Back</button>
-                                        <button class="btn" type="button" id="next2">Continue</button>
-                                    </div>
-                                </section>
+                                                <option value="Atlantic/Azores">(UTC-01:00) Azores</option>
+                                                <option value="Atlantic/Cape_Verde">(UTC-01:00) Cape Verde Is.</option>
 
-                                <!-- STEP 3 -->
-                                <section class="step" data-step="3">
-                                    <div class="sectionTitle">3) Event Theme</div>
-                                    <div class="grid">
-                                        <div>
-                                            <label for="theme">Choose a theme (sample)</label>
-                                            <select id="theme">
-                                                <option value="">Select theme</option>
-                                                <option value="minimal">Minimal</option>
-                                                <option value="vibrant">Vibrant</option>
+                                                <option value="UTC">(UTC+00:00) UTC</option>
+                                                <option value="Europe/London">(UTC+00:00) London</option>
+                                                <option value="Europe/Dublin">(UTC+00:00) Dublin</option>
+                                                <option value="Africa/Casablanca">(UTC+00:00) Casablanca</option>
+                                                <option value="Africa/Accra">(UTC+00:00) Accra</option>
+
+                                                <option value="Europe/Paris">(UTC+01:00) Paris</option>
+                                                <option value="Europe/Berlin">(UTC+01:00) Berlin</option>
+                                                <option value="Europe/Rome">(UTC+01:00) Rome</option>
+                                                <option value="Europe/Madrid">(UTC+01:00) Madrid</option>
+                                                <option value="Africa/Lagos">(UTC+01:00) West Central Africa (Lagos)
+                                                </option>
+
+                                                <option value="Europe/Athens">(UTC+02:00) Athens</option>
+                                                <option value="Europe/Bucharest">(UTC+02:00) Bucharest</option>
+                                                <option value="Africa/Cairo">(UTC+02:00) Cairo</option>
+                                                <option value="Africa/Johannesburg">(UTC+02:00) Johannesburg</option>
+                                                <option value="Asia/Jerusalem">(UTC+02:00) Jerusalem</option>
+
+                                                <option value="Europe/Moscow">(UTC+03:00) Moscow</option>
+                                                <option value="Africa/Nairobi">(UTC+03:00) Nairobi</option>
+                                                <option value="Asia/Riyadh">(UTC+03:00) Riyadh</option>
+
+                                                <option value="Asia/Tehran">(UTC+03:30) Tehran</option>
+
+                                                <option value="Asia/Dubai">(UTC+04:00) Abu Dhabi, Muscat</option>
+                                                <option value="Asia/Baku">(UTC+04:00) Baku</option>
+                                                <option value="Indian/Mauritius">(UTC+04:00) Mauritius</option>
+
+                                                <option value="Asia/Kabul">(UTC+04:30) Kabul</option>
+
+                                                <option value="Asia/Karachi">(UTC+05:00) Islamabad, Karachi</option>
+                                                <option value="Asia/Tashkent">(UTC+05:00) Tashkent</option>
+
+                                                <option value="Asia/Kolkata">(UTC+05:30) Chennai, Kolkata, Mumbai, New
+                                                    Delhi</option>
+                                                <option value="Asia/Colombo">(UTC+05:30) Sri Jayawardenepura (Sri Lanka)
+                                                </option>
+
+                                                <option value="Asia/Kathmandu">(UTC+05:45) Kathmandu</option>
+
+                                                <option value="Asia/Dhaka">(UTC+06:00) Dhaka</option>
+                                                <option value="Asia/Almaty">(UTC+06:00) Almaty</option>
+
+                                                <option value="Asia/Yangon">(UTC+06:30) Yangon (Rangoon)</option>
+
+                                                <option value="Asia/Bangkok">(UTC+07:00) Bangkok, Hanoi, Jakarta
+                                                </option>
+                                                <option value="Asia/Ho_Chi_Minh">(UTC+07:00) Ho Chi Minh City</option>
+
+                                                <option value="Asia/Shanghai">(UTC+08:00) Beijing, Shanghai</option>
+                                                <option value="Asia/Hong_Kong">(UTC+08:00) Hong Kong</option>
+                                                <option value="Asia/Singapore">(UTC+08:00) Singapore</option>
+                                                <option value="Australia/Perth">(UTC+08:00) Perth</option>
+
+                                                <option value="Asia/Tokyo">(UTC+09:00) Tokyo</option>
+                                                <option value="Asia/Seoul">(UTC+09:00) Seoul</option>
+
+                                                <option value="Australia/Adelaide">(UTC+09:30) Adelaide</option>
+                                                <option value="Australia/Darwin">(UTC+09:30) Darwin</option>
+
+                                                <option value="Australia/Sydney">(UTC+10:00) Sydney, Melbourne</option>
+                                                <option value="Australia/Brisbane">(UTC+10:00) Brisbane</option>
+                                                <option value="Pacific/Guam">(UTC+10:00) Guam, Port Moresby</option>
+
+                                                <option value="Australia/Lord_Howe">(UTC+10:30) Lord Howe Island
+                                                </option>
+
+                                                <option value="Pacific/Noumea">(UTC+11:00) Noumea</option>
+                                                <option value="Pacific/Guadalcanal">(UTC+11:00) Solomon Is.</option>
+
+                                                <option value="Pacific/Auckland">(UTC+12:00) Auckland, Wellington
+                                                </option>
+                                                <option value="Pacific/Fiji">(UTC+12:00) Fiji</option>
+
+                                                <option value="Pacific/Chatham">(UTC+12:45) Chatham Islands</option>
+
+                                                <option value="Pacific/Tongatapu">(UTC+13:00) Nuku'alofa (Tonga)
+                                                </option>
+                                                <option value="Pacific/Apia">(UTC+13:00) Apia (Samoa)</option>
+
+                                                <option value="Pacific/Kiritimati">(UTC+14:00) Kiritimati (Line Islands)
+                                                </option>
+
                                             </select>
-                                            <div class="hint">Only 2 sample options for now.</div>
+                                        </div>
+                                        <button class="button button-small w-100 mt-3" id="go-to-location">Next: Event
+                                            Location</button>
+                                        <hr>
+                                        <div class="text-center">
+                                            <a href="#">Skip creating an event and sign up.</a>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="event-location" class="d-none">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-6">
+                                        <h4 class="text-center mb-0">Where is the event?</h4>
+                                        <p class="text-center my-3">Not Sure yet? You can add location later.</p>
+                                        <p class="text-center"><a href="#">Skip for now.</a></p>
+                                        <input type="text" class="form-control">
+                                        <button class="button button-small w-100 mt-3" id="go-to-url">Next: Event
+                                            URL</button>
 
-                                    <div class="error" id="errorStep3"></div>
-
-                                    <div class="actions">
-                                        <button class="btn secondary" type="button" id="back3">Back</button>
-                                        <button class="btn" type="button" id="finish">Finish</button>
                                     </div>
-                                </section>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="event-url" class="d-none">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-6">
+                                        <h4 class="text-center mb-0">Customize your RSVP event URL.</h4>
+                                        <p class="text-center my-3">This is the link you’ll give to guests so they can
+                                            RSVP!</p>
+                                        <p class="mb-1">Event URL</p>
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control">
+                                            <div class="url-status">
+                                                <p class="mb-0">.rsvp.com</p><i class="fa fa-check text-success"></i>
+                                            </div>
+                                        </div>
+                                        <button class="button button-small w-100 mt-3" id="go-to-theme">Next: Event
+                                            Theme</button>
 
-                                <!-- FINISH -->
-                                <section class="step" data-step="4">
-                                    <div class="sectionTitle">Finish ✅</div>
-                                    <div class="hint">Here’s your collected data (you can send this to your backend).
                                     </div>
-                                    <pre id="result"></pre>
-
-                                    <div class="actions">
-                                        <button class="btn secondary" type="button" id="edit">Edit</button>
-                                        <button class="btn" type="button" id="reset">Create another</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="event-theme" class="d-none">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-8">
+                                        <h4 class="text-center mb-0">Choose a theme to give you a head start on your
+                                            event!</h4>
+                                        <p class="text-center my-3">You can upload photos, customize your design,
+                                            colors, and styles later.</p>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="position-relative theme-chooser">
+                                                    <img src="./images/01_preview.jpg" alt="">
+                                                    <button
+                                                        style="top:50%;left:50%;transform: translate(-50%, -50%);z-index: 2; opacity: 0;"
+                                                        class="position-absolute button  button-light rounded px-5 mb-0 go-to-signup">Select
+                                                        Theme</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative theme-chooser">
+                                                    <img src="./images/01_preview.jpg" alt="">
+                                                    <button
+                                                        style="top:50%;left:50%;transform: translate(-50%, -50%);z-index: 2; opacity: 0;"
+                                                        class="position-absolute button  button-light rounded px-5 mb-0 go-to-signup">Select
+                                                        Theme</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative theme-chooser">
+                                                    <img src="./images/01_preview.jpg" alt="">
+                                                    <button
+                                                        style="top:50%;left:50%;transform: translate(-50%, -50%);z-index: 2; opacity: 0;"
+                                                        class="position-absolute button  button-light rounded px-5 mb-0 go-to-signup">Select
+                                                        Theme</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </section>
-                            </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="event-signup" class="d-none">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-6">
+                                        <h4 class="text-center mb-0">Sign up for RSVP</h4>
+                                        <p class="text-center my-3">Please tell us a bit about yourself so we can finish
+                                            customizing your experience.</p>
+                                        <div class="form-wrap">
+                                            <div class="form-group mb-3">
+                                                <p class="font-semibold mb-1">Your Full Name</p>
+                                                <input type="text" placeholder="Date" class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <p class="font-semibold mb-1">Email Address</p>
+                                                <input type="email" placeholder="Date" class="form-control">
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <p class="font-semibold mb-1">Create a password</p>
+                                                <input type="passwords" placeholder="Date" class="form-control">
+                                            </div>
+                                            <p><small>By completing sign up, you agree to RSVP’s Terms of Service and
+                                                    Privacy Policy.</small></p>
+                                            <button class="button button-small w-100 mt-3">Sign Up</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </main><!-- #content end -->
-
 
 
 
@@ -294,451 +463,75 @@
     <!-- JavaScripts
 	============================================= -->
     <script src="js/plugins.min.js"></script>
-    <script src="js/functions.bundle.js"></script>
+    <script src="js/functions.js"></script>
+    <!-- Select Splitter Plugin -->
+    <script src="js/components/selectsplitter.js"></script>
+    <script src="js/components/bs-select.js"></script>
     <script>
-        // ---------- Wizard State ----------
-        const state = {
-            eventName: "",
-            ticketing: "free", // free | paid
-            eventType: "single", // single | multiple | appointment
-            single: {
-                startDate: "",
-                startTime: "",
-                endDate: "",
-                endTime: "",
-                timezone: "",
-                location: "",
-            },
-            multiple: {
-                timezone: "",
-                sessions: [], // [{date, startTime, endTime, location}]
-            },
-            appointment: {
-                availabilityStartDate: "",
-                availabilityEndDate: "",
-                durationMinutes: "",
-                timezone: "",
-            },
-            eventUrl: "",
-            theme: "",
-        };
+        // nav tabs (if you want to toggle them too, uncomment where needed)
+        var nav1 = document.getElementById("canvas-tab-1");
+        var nav2 = document.getElementById("canvas-tab-2");
+        var nav3 = document.getElementById("canvas-tab-3");
+        var nav4 = document.getElementById("canvas-tab-4");
 
-        // ---------- Helpers ----------
-        const $ = (sel) => document.querySelector(sel);
-        const $$ = (sel) => document.querySelectorAll(sel);
+        var eventName = document.getElementById("event-name");
+        var eventDetails = document.getElementById("event-details");
+        var eventLocation = document.getElementById("event-location");
+        var eventURL = document.getElementById("event-url");
+        var eventTheme = document.getElementById("event-theme");
+        var eventSignUp = document.getElementById("event-signup");
 
-        function showError(el, msg) {
-            el.textContent = msg || "";
-            el.classList.toggle("show", !!msg);
+        var goToDetails = document.getElementById("go-to-details");
+        var goToLocation = document.getElementById("go-to-location");
+        var goToURL = document.getElementById("go-to-url");
+        var goToTheme = document.getElementById("go-to-theme");
+        var goToSignup = document.querySelectorAll(".go-to-signup"); // FIX: add '.' (class selector)
+
+        function showStep(currentEl, nextEl) {
+            currentEl.classList.add("d-none");
+            nextEl.classList.remove("d-none");
+            // window.scrollTo({ top: 0, behavior: "smooth" }); // optional
         }
 
-        function showStep(stepNum) {
-            $$(".step").forEach((s) => s.classList.remove("active"));
-            document.querySelector(`.step[data-step="${stepNum}"]`).classList.add("active");
-            updateDots(stepNum);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        }
+        goToDetails.addEventListener("click", function (e) {
+            e.preventDefault();
+            showStep(eventName, eventDetails);
+            nav1?.classList.remove("active"); // optional
+            nav2?.classList.add("active"); // optional
 
-        function buildDots() {
-            const dotsWrap = $("#progressDots");
-            dotsWrap.innerHTML = "";
-            // steps: 1,2,3,4
-            for (let i = 1; i <= 4; i++) {
-                const d = document.createElement("div");
-                d.className = "dot";
-                d.title = `Step ${i}`;
-                dotsWrap.appendChild(d);
-            }
-            updateDots(1);
-        }
+        });
 
-        function updateDots(activeStep) {
-            const dots = [...$("#progressDots").children];
-            dots.forEach((dot, idx) => {
-                const step = idx + 1;
-                dot.classList.remove("active", "done");
-                if (step < activeStep) dot.classList.add("done");
-                if (step === activeStep) dot.classList.add("active");
-            });
-        }
+        goToLocation.addEventListener("click", function (e) {
+            e.preventDefault();
+            showStep(eventDetails, eventLocation);
+            // nav3?.classList.add("active"); // optional
+        });
 
-        function isValidUrl(url) {
-            if (!url) return true; // optional
-            try {
-                new URL(url);
-                return true;
-            } catch {
-                return false;
-            }
-        }
+        goToURL.addEventListener("click", function (e) {
+            e.preventDefault();
+            showStep(eventLocation, eventURL);
+            // nav4?.classList.add("active"); // optional
+        });
 
-        // Timezone list (best effort)
-        function getTimezones() {
-            // Modern browsers:
-            if (typeof Intl !== "undefined" && Intl.supportedValuesOf) {
-                try {
-                    return Intl.supportedValuesOf("timeZone");
-                } catch { }
-            }
-            // fallback
-            return [
-                "Asia/Kathmandu",
-                "Asia/Kolkata",
-                "UTC",
-                "Europe/London",
-                "America/New_York",
-                "America/Los_Angeles",
-                "Asia/Tokyo",
-                "Australia/Sydney",
-            ];
-        }
+        goToTheme.addEventListener("click", function (e) {
+            e.preventDefault();
+            showStep(eventURL, eventTheme);
+            nav2?.classList.remove("active"); // optional
+            nav3?.classList.add("active"); // optional
+        });
 
-        function fillTimezoneSelect(selectEl, preferred = "Asia/Kathmandu") {
-            const tzs = getTimezones();
-            selectEl.innerHTML = "";
-            tzs.forEach((tz) => {
-                const opt = document.createElement("option");
-                opt.value = tz;
-                opt.textContent = tz;
-                selectEl.appendChild(opt);
+        // Theme -> Signup (multiple "Select Theme" buttons)
+        goToSignup.forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+                e.preventDefault();
+                showStep(eventTheme, eventSignUp);
+                nav3?.classList.remove("active"); // optional
+                nav4?.classList.add("active"); // optional
             });
 
-            // best default: browser tz if present, else preferred
-            const browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const defaultTz = tzs.includes(browserTz) ? browserTz : (tzs.includes(preferred) ? preferred : tzs[0]);
-            selectEl.value = defaultTz;
-        }
-
-        // ---------- Step 2 conditional UI ----------
-        function updateTicketingUI() {
-            const val = document.querySelector('input[name="ticketing"]:checked')?.value || "free";
-            state.ticketing = val;
-            $("#paidHint").style.display = val === "paid" ? "block" : "none";
-        }
-
-        function updateEventTypeUI() {
-            const type = document.querySelector('input[name="eventType"]:checked')?.value || "single";
-            state.eventType = type;
-
-            $("#singleBlock").style.display = type === "single" ? "block" : "none";
-            $("#multipleBlock").style.display = type === "multiple" ? "block" : "none";
-            $("#appointmentBlock").style.display = type === "appointment" ? "block" : "none";
-        }
-
-        // ---------- Multiple sessions ----------
-        function addSession(prefill = {}) {
-            const idx = state.multiple.sessions.length;
-            state.multiple.sessions.push({
-                date: prefill.date || "",
-                startTime: prefill.startTime || "",
-                endTime: prefill.endTime || "",
-                location: prefill.location || "",
-            });
-
-            const card = document.createElement("div");
-            card.className = "miniCard";
-            card.dataset.sessionIndex = String(idx);
-
-            card.innerHTML = `
-          <div class="sessionHeader">
-            <div style="font-weight:700;">Session #${idx + 1}</div>
-            <button class="xbtn" type="button" data-remove-session="${idx}">Remove</button>
-          </div>
-          <div class="grid">
-            <div>
-              <label>Date</label>
-              <input type="date" data-s-date="${idx}" value="${state.multiple.sessions[idx].date}">
-            </div>
-            <div>
-              <label>Location</label>
-              <input type="text" placeholder="e.g., Hall A / Online" data-s-location="${idx}" value="${state.multiple.sessions[idx].location}">
-            </div>
-            <div>
-              <label>Start time</label>
-              <input type="time" data-s-start="${idx}" value="${state.multiple.sessions[idx].startTime}">
-            </div>
-            <div>
-              <label>End time</label>
-              <input type="time" data-s-end="${idx}" value="${state.multiple.sessions[idx].endTime}">
-            </div>
-          </div>
-        `;
-            $("#sessionsWrap").appendChild(card);
-        }
-
-        function rebuildSessionsUI() {
-            $("#sessionsWrap").innerHTML = "";
-            const old = [...state.multiple.sessions];
-            state.multiple.sessions = [];
-            old.forEach((s) => addSession(s));
-        }
-
-        function removeSession(index) {
-            state.multiple.sessions.splice(index, 1);
-            rebuildSessionsUI();
-        }
-
-        // ---------- Collect inputs ----------
-        function collectStep1() {
-            state.eventName = $("#eventName").value.trim();
-        }
-
-        function collectStep2() {
-            updateTicketingUI();
-            updateEventTypeUI();
-
-            state.eventUrl = $("#eventUrl").value.trim();
-
-            if (state.eventType === "single") {
-                state.single.startDate = $("#startDate").value;
-                state.single.startTime = $("#startTime").value;
-                state.single.endDate = $("#endDate").value;
-                state.single.endTime = $("#endTime").value;
-                state.single.timezone = $("#timezone").value;
-                state.single.location = $("#location").value.trim();
-            } else if (state.eventType === "multiple") {
-                state.multiple.timezone = $("#timezoneMultiple").value;
-
-                // pull from dynamic fields
-                const sessions = [];
-                const count = $("#sessionsWrap").children.length;
-                for (let i = 0; i < count; i++) {
-                    const date = document.querySelector(`[data-s-date="${i}"]`)?.value || "";
-                    const location = document.querySelector(`[data-s-location="${i}"]`)?.value?.trim() || "";
-                    const startTime = document.querySelector(`[data-s-start="${i}"]`)?.value || "";
-                    const endTime = document.querySelector(`[data-s-end="${i}"]`)?.value || "";
-                    sessions.push({ date, startTime, endTime, location });
-                }
-                state.multiple.sessions = sessions;
-            } else if (state.eventType === "appointment") {
-                state.appointment.availabilityStartDate = $("#apptStartDate").value;
-                state.appointment.availabilityEndDate = $("#apptEndDate").value;
-                state.appointment.durationMinutes = $("#apptDuration").value.trim();
-                state.appointment.timezone = $("#timezoneAppointment").value;
-            }
-        }
-
-        function collectStep3() {
-            state.theme = $("#theme").value;
-        }
-
-        // ---------- Validation ----------
-        function validateStep1() {
-            const err = $("#errorStep1");
-            showError(err, "");
-
-            if (!state.eventName) {
-                showError(err, "Please enter an event name.");
-                return false;
-            }
-            return true;
-        }
-
-        function validateStep2() {
-            const err = $("#errorStep2");
-            showError(err, "");
-
-            if (!isValidUrl(state.eventUrl)) {
-                showError(err, "Please enter a valid Event URL (or leave it empty).");
-                return false;
-            }
-
-            if (state.eventType === "single") {
-                const { startDate, startTime, endDate, endTime, timezone } = state.single;
-                if (!startDate || !startTime || !endDate || !endTime) {
-                    showError(err, "Please fill start/end date and time for your event.");
-                    return false;
-                }
-                if (!timezone) {
-                    showError(err, "Please select a timezone.");
-                    return false;
-                }
-                // Basic chronological check (best-effort)
-                const start = new Date(`${startDate}T${startTime}`);
-                const end = new Date(`${endDate}T${endTime}`);
-                if (end <= start) {
-                    showError(err, "End date/time must be after start date/time.");
-                    return false;
-                }
-            }
-
-            if (state.eventType === "multiple") {
-                if (!state.multiple.timezone) {
-                    showError(err, "Please select a timezone for sessions.");
-                    return false;
-                }
-                if (!state.multiple.sessions.length) {
-                    showError(err, "Please add at least one session.");
-                    return false;
-                }
-                for (let i = 0; i < state.multiple.sessions.length; i++) {
-                    const s = state.multiple.sessions[i];
-                    if (!s.date || !s.startTime || !s.endTime) {
-                        showError(err, `Please complete date/start/end time for Session #${i + 1}.`);
-                        return false;
-                    }
-                    const start = new Date(`${s.date}T${s.startTime}`);
-                    const end = new Date(`${s.date}T${s.endTime}`);
-                    if (end <= start) {
-                        showError(err, `Session #${i + 1}: end time must be after start time.`);
-                        return false;
-                    }
-                }
-            }
-
-            if (state.eventType === "appointment") {
-                const a = state.appointment;
-                if (!a.availabilityStartDate || !a.availabilityEndDate || !a.durationMinutes || !a.timezone) {
-                    showError(err, "Please fill availability start/end date, duration, and timezone.");
-                    return false;
-                }
-                const s = new Date(`${a.availabilityStartDate}T00:00`);
-                const e = new Date(`${a.availabilityEndDate}T00:00`);
-                if (e < s) {
-                    showError(err, "Availability end date must be after start date.");
-                    return false;
-                }
-                const dur = Number(a.durationMinutes);
-                if (!Number.isFinite(dur) || dur < 5) {
-                    showError(err, "Duration must be a number (minimum 5 minutes).");
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        function validateStep3() {
-            const err = $("#errorStep3");
-            showError(err, "");
-            if (!state.theme) {
-                showError(err, "Please select a theme.");
-                return false;
-            }
-            return true;
-        }
-
-        // ---------- Finish ----------
-        function renderResult() {
-            const clean = JSON.parse(JSON.stringify(state));
-
-            // optional: remove unused branches for cleaner output
-            if (clean.eventType !== "single") delete clean.single;
-            if (clean.eventType !== "multiple") delete clean.multiple;
-            if (clean.eventType !== "appointment") delete clean.appointment;
-
-            $("#result").textContent = JSON.stringify(clean, null, 2);
-            console.log("Event form result:", clean);
-        }
-
-        function resetAll() {
-            // reset state
-            state.eventName = "";
-            state.ticketing = "free";
-            state.eventType = "single";
-            state.single = { startDate: "", startTime: "", endDate: "", endTime: "", timezone: "", location: "" };
-            state.multiple = { timezone: "", sessions: [] };
-            state.appointment = { availabilityStartDate: "", availabilityEndDate: "", durationMinutes: "", timezone: "" };
-            state.eventUrl = "";
-            state.theme = "";
-
-            // reset UI
-            $("#eventName").value = "";
-            document.querySelector('input[name="ticketing"][value="free"]').checked = true;
-            document.querySelector('input[name="eventType"][value="single"]').checked = true;
-            $("#eventUrl").value = "";
-            $("#theme").value = "";
-
-            $("#startDate").value = "";
-            $("#startTime").value = "";
-            $("#endDate").value = "";
-            $("#endTime").value = "";
-            $("#location").value = "";
-
-            $("#apptStartDate").value = "";
-            $("#apptEndDate").value = "";
-            $("#apptDuration").value = "";
-
-            $("#sessionsWrap").innerHTML = "";
-            state.multiple.sessions = [];
-
-            updateTicketingUI();
-            updateEventTypeUI();
-            showStep(1);
-        }
-
-        // ---------- Events ----------
-        document.addEventListener("change", (e) => {
-            if (e.target.matches('input[name="ticketing"]')) updateTicketingUI();
-            if (e.target.matches('input[name="eventType"]')) updateEventTypeUI();
-
-            // dynamic session inputs reflect in state immediately (optional)
-            const t = e.target;
-            if (t.dataset.sDate || t.dataset.sStart || t.dataset.sEnd || t.dataset.sLocation) {
-                // We re-collect sessions on Continue, so this is optional.
-            }
         });
 
-        document.addEventListener("click", (e) => {
-            const t = e.target;
 
-            if (t.id === "addSessionBtn") {
-                addSession();
-            }
-
-            if (t.dataset.removeSession !== undefined) {
-                const idx = Number(t.dataset.removeSession);
-                removeSession(idx);
-            }
-        });
-
-        $("#next1").addEventListener("click", () => {
-            collectStep1();
-            if (!validateStep1()) return;
-            showStep(2);
-        });
-
-        $("#back2").addEventListener("click", () => showStep(1));
-        $("#next2").addEventListener("click", () => {
-            collectStep2();
-            if (!validateStep2()) return;
-            showStep(3);
-        });
-
-        $("#back3").addEventListener("click", () => showStep(2));
-        $("#finish").addEventListener("click", () => {
-            collectStep3();
-            if (!validateStep3()) return;
-
-            // Ensure latest step 2 values are collected before final output
-            collectStep2();
-            renderResult();
-            showStep(4);
-        });
-
-        $("#edit").addEventListener("click", () => showStep(1));
-        $("#reset").addEventListener("click", resetAll);
-
-        // prevent actual submit
-        $("#eventForm").addEventListener("submit", (e) => e.preventDefault());
-
-        // ---------- Init ----------
-        buildDots();
-        fillTimezoneSelect($("#timezone"));
-        fillTimezoneSelect($("#timezoneMultiple"));
-        fillTimezoneSelect($("#timezoneAppointment"));
-
-        // preselect default timezones into state after filling
-        state.single.timezone = $("#timezone").value;
-        state.multiple.timezone = $("#timezoneMultiple").value;
-        state.appointment.timezone = $("#timezoneAppointment").value;
-
-        updateTicketingUI();
-        updateEventTypeUI();
-
-        // If "multiple sessions" is chosen later, start with 1 session for convenience
-        // (kept off by default, uncomment if you want)
-        // addSession();
     </script>
 </body>
 

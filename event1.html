@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emma & Liam | Wedding</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* HERO */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.45),
+                    rgba(0, 0, 0, 0.45)),
+                url("https://images.unsplash.com/photo-1523438885200-e635ba2c371e") center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 1.5rem;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-details {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero button {
+            padding: 0.9rem 2.4rem;
+            border-radius: 50px;
+            border: none;
+            background: #b76e79;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .hero button:hover {
+            opacity: 0.9;
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 18px;
+            width: 90%;
+            max-width: 420px;
+            position: relative;
+            animation: fadeUp 0.3s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 0.95rem;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 50px;
+            border: none;
+            background: #b76e79;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Emma & Liam</h1>
+            <div class="hero-details">
+                Saturday, 12th October 2025 <br />
+                4:00 PM onwards <br />
+                Rosewood Garden, Kathmandu
+            </div>
+            <button id="openRSVP">RSVP</button>
+        </div>
+    </section>
+
+    <!-- RSVP MODAL -->
+    <div class="modal" id="rsvpModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeRSVP">&times;</span>
+            <h2>RSVP</h2>
+
+            <form>
+                <input type="text" placeholder="Full Name" required />
+                <input type="email" placeholder="Email Address" required />
+                <input type="tel" placeholder="Phone Number" required />
+                <button type="submit">Confirm Attendance</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const openBtn = document.getElementById("openRSVP");
+        const modal = document.getElementById("rsvpModal");
+        const closeBtn = document.getElementById("closeRSVP");
+
+        openBtn.onclick = () => modal.classList.add("active");
+        closeBtn.onclick = () => modal.classList.remove("active");
+
+        modal.onclick = (e) => {
+            if (e.target === modal) modal.classList.remove("active");
+        };
+    </script>
+
+</body>
+
+</html>

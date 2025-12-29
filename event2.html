@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emma & Liam | Wedding</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #faf7f5;
+            color: #2b2b2b;
+        }
+
+        /* LAYOUT */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100vh;
+        }
+
+        /* LEFT */
+        .hero-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .hero-info h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-info .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .details {
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .details strong {
+            color: #b76e79;
+            font-weight: 500;
+        }
+
+        .hero-info button {
+            width: fit-content;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            border: none;
+            background: #b76e79;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* RIGHT */
+        .hero-image {
+            background: url("https://images.unsplash.com/photo-1519741497674-611481863552") center/cover no-repeat;
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 18px;
+            width: 90%;
+            max-width: 420px;
+            position: relative;
+            animation: fadeUp 0.3s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-box h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-box input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 0.95rem;
+        }
+
+        .modal-box button {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 50px;
+            border: none;
+            background: #b76e79;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .close {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+
+        .close:hover {
+            opacity: 1;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                height: 50vh;
+            }
+
+            .hero-info {
+                padding: 2.5rem;
+            }
+
+            .hero-info h1 {
+                font-size: 2.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-info">
+            <h1>Emma & Liam</h1>
+            <div class="subtitle">We are getting married</div>
+
+            <div class="details">
+                <strong>Date:</strong> Saturday, 12th October 2025 <br />
+                <strong>Time:</strong> 4:00 PM onwards <br />
+                <strong>Venue:</strong> Rosewood Garden, Kathmandu
+            </div>
+
+            <button id="openRSVP">RSVP</button>
+        </div>
+
+        <div class="hero-image"></div>
+    </section>
+
+    <!-- MODAL -->
+    <div class="modal" id="rsvpModal">
+        <div class="modal-box">
+            <span class="close" id="closeRSVP">&times;</span>
+            <h2>RSVP</h2>
+            <form>
+                <input type="text" placeholder="Full Name" required />
+                <input type="email" placeholder="Email Address" required />
+                <input type="tel" placeholder="Phone Number" required />
+                <button type="submit">Confirm Attendance</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const openBtn = document.getElementById("openRSVP");
+        const modal = document.getElementById("rsvpModal");
+        const closeBtn = document.getElementById("closeRSVP");
+
+        openBtn.onclick = () => modal.classList.add("active");
+        closeBtn.onclick = () => modal.classList.remove("active");
+
+        modal.onclick = (e) => {
+            if (e.target === modal) modal.classList.remove("active");
+        };
+    </script>
+
+</body>
+
+</html>
